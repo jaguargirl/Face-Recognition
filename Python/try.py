@@ -11,7 +11,6 @@ from tkinter import messagebox
 import matplotlib.pyplot as plt
 import numpy as np
 
-#os.chdir('E:/Univ/Info 3/Algoritmi de calcul stiintific main/untitled/Poze/')
 imS = 1
 
 
@@ -26,7 +25,7 @@ class App(QMainWindow):
         self.initui()
 
     def initui(self):
-        # Fereastra principala
+        # Main window
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
         self.setStyleSheet("background-color: rgb(132, 169, 217);")
@@ -38,10 +37,10 @@ class App(QMainWindow):
         self.groupBox.setTitle("")
         self.groupBox.setObjectName("groupBox")
         # radiobuttons
-        self.fedge = QRadioButton("Detecție de margini", self.groupBox)
+        self.fedge = QRadioButton("Edge detection", self.groupBox)
         self.fedge.setGeometry(QtCore.QRect(20, 30, 200, 20))
         self.fedge.setObjectName("r1")
-        self.fGaussian = QRadioButton("Filtrul Gaussian", self.groupBox)
+        self.fGaussian = QRadioButton("Gaussian filter", self.groupBox)
         self.fGaussian.setGeometry(QtCore.QRect(20, 70, 200, 20))
         self.fGaussian.setObjectName("r2")
         self.fThresholding = QRadioButton("Thresholding", self.groupBox)
@@ -50,35 +49,35 @@ class App(QMainWindow):
         self.fGradient = QRadioButton("Gradient", self.groupBox)
         self.fGradient.setGeometry(QtCore.QRect(20, 150, 200, 20))
         self.fGradient.setObjectName("r4")
-        self.fErosion = QRadioButton("Eroziune", self.groupBox)
+        self.fErosion = QRadioButton("Erozion", self.groupBox)
         self.fErosion.setGeometry(QtCore.QRect(20, 190, 200, 20))
         self.fErosion.setObjectName("r5")
-        self.fDilation = QRadioButton("Dilatare", self.groupBox)
+        self.fDilation = QRadioButton("Dilatation", self.groupBox)
         self.fDilation.setGeometry(QtCore.QRect(20, 230, 200, 20))
         self.fDilation.setObjectName("r6")
-        self.fCorner = QRadioButton("Detecție de colțuri", self.groupBox)
+        self.fCorner = QRadioButton("Edge detection", self.groupBox)
         self.fCorner.setGeometry(QtCore.QRect(20, 270, 200, 20))
         self.fCorner.setObjectName("r7")
-        self.fContour = QRadioButton("Detecție de contur", self.groupBox)
+        self.fContour = QRadioButton("Contour detection", self.groupBox)
         self.fContour.setGeometry(QtCore.QRect(20, 310, 200, 20))
         self.fContour.setObjectName("r8")
-        self.fContour2 = QRadioButton("Detecție de contur pe imagine", self.groupBox)
+        self.fContour2 = QRadioButton("Contour detection on image", self.groupBox)
         self.fContour2.setGeometry(QtCore.QRect(20, 350, 200, 20))
         self.fContour2.setObjectName("r9")
-        self.fContour3 = QRadioButton("Contur convex", self.groupBox)
+        self.fContour3 = QRadioButton("Convex contour", self.groupBox)
         self.fContour3.setGeometry(QtCore.QRect(20, 390, 200, 20))
         self.fContour3.setObjectName("r10")
         # pushbuttons
-        self.btnApply = QPushButton('Aplică', self.groupBox)
+        self.btnApply = QPushButton('Aply', self.groupBox)
         self.btnApply.setGeometry(QtCore.QRect(100, 470, 75, 23))
         self.btnApply.setStyleSheet("background-color: rgb(132, 169, 217);")
         self.btnApply.setObjectName("btnApply")
 
         # Menu
         mainMenu = self.menuBar()
-        loadMenu = mainMenu.addMenu('Încarcă')
+        loadMenu = mainMenu.addMenu('Load')
         # button.clicked.connect(self.on_click)
-        loadButton = QAction('Selectează poza din folder', self)
+        loadButton = QAction('Select image from directory', self)
         loadButton.triggered.connect(self.load_click)
         loadMenu.addAction(loadButton)
         self.btnApply.setEnabled(False)
@@ -109,7 +108,7 @@ class App(QMainWindow):
         gaussian_kernel_x = cv2.getGaussianKernel(5, 1) #(kernelSize, sigma)
         gaussian_kernel_y = cv2.getGaussianKernel(5, 1)
         gaussian_kernel = gaussian_kernel_x * gaussian_kernel_y.T
-        filtered_image = cv2.filter2D(imS, -1, gaussian_kernel) #(imagine, destinatia/adancimea , kernel)
+        filtered_image = cv2.filter2D(imS, -1, gaussian_kernel)
         plt.imshow(filtered_image)
         plt.axis('off')
         plt.show()
@@ -117,7 +116,7 @@ class App(QMainWindow):
     @staticmethod
     def thresholding():
         imgn = cv2.cvtColor(imS, cv2.COLOR_RGB2GRAY)
-        _, thresh_binary = cv2.threshold(imgn, thresh=127, maxval=255, type=cv2.THRESH_BINARY) # daca valoarea e mai mare de 127 =>light => =1 else =0
+        _, thresh_binary = cv2.threshold(imgn, thresh=127, maxval=255, type=cv2.THRESH_BINARY)
         plt.imshow(thresh_binary)
         plt.axis('off')
         plt.show()
@@ -243,7 +242,7 @@ class App(QMainWindow):
         else:
             root = tkinter.Tk()
             root.withdraw()
-            messagebox.showwarning("Atenție", "Selectați un filtru")
+            messagebox.showwarning("Warning", "Select a filter")
             return
 
 

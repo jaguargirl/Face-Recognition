@@ -1,4 +1,4 @@
-function pozitia=EigenfacesRC(A,training,img,norm,med,hqb,proiections)
+function position=EigenfacesRC(A,training,img,norm,med,hqb,proiections)
 Z=zeros(1,40);
 img=double(reshape(img,10304,1));
 img=img-med;

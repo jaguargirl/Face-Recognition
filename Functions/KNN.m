@@ -1,22 +1,22 @@
-function [pozitia] = KNN(A,training,poza,norma,k)
+function [position] = KNN(A,training,img,norm,k)
 Z=zeros(1,training*40);
-poza=double(reshape(poza,10304,1));
+img=double(reshape(img,10304,1));
 for i=1:size(A,2)
-    switch norma
-        case 'n1',Z(i)=norm(poza-A(:,i),1);
-        case 'n2',Z(i)=norm(poza-A(:,i),2);
-        case 'ninf',Z(i)=norm(poza-A(:,i),inf);
-        case 'ncos',Z(i)=1-dot(poza,A(:,i))/(norm(poza)*norm(A(:,i)));
+    switch norm
+        case 'n1',Z(i)=norm(img-A(:,i),1);
+        case 'n2',Z(i)=norm(img-A(:,i),2);
+        case 'ninf',Z(i)=norm(img-A(:,i),inf);
+        case 'ncos',Z(i)=1-dot(img,A(:,i))/(norm(img)*norm(A(:,i)));
     end
-    [distante,pozitii]=sort(Z);
-    vecini=zeros(1,k);
+    [distances,positions]=sort(Z);
+    neighbours=zeros(1,k);
     for i=1:k
-        if mod(pozitii(i),training)~=0
-            vecini(i)=floor(pozitii(i)/training)+1;
+        if mod(positions(i),training)~=0
+            neighbours(i)=floor(positions(i)/training)+1;
         else
-            vecini(i)=pozitii(i)/training;
+            neighbours(i)=positions(i)/training;
         end
     end
 end
-gasit=mode(vecini);%vecinul care se repeta cel mai des
-pozitia=(gasit-1)*training+1;%pozitia primei poze a persoanei gasite
+found=mode(neighbours);
+position=(found-1)*training+1;
